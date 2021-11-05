@@ -3,6 +3,7 @@ package org.geografii.controller;
 import org.geografii.dto.AnswerModelDTO;
 import org.geografii.model.AnswerModel;
 import org.geografii.service.AnswerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,12 +18,10 @@ public class AnswerController {
 
     public AnswerController(AnswerService answerService) {
         this.answerService = answerService;
-        save();
     }
 
-    @PostMapping()
-    public ResponseEntity<Object> save(){
-        AnswerModelDTO ans= new AnswerModelDTO(Long.parseLong("2"),"hello",false);
+    @PostMapping("/save")
+    public ResponseEntity<Object> save(@RequestBody AnswerModelDTO ans){
         this.answerService.saveAnswer(ans);
         return ResponseEntity.ok().build();
     }

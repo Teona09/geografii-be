@@ -26,6 +26,6 @@ public class QuestionServiceImpl implements QuestionService {
         QuestionModel question= this.questionMapper.questionDTOToQuestionModel((questionModelDTO));
         AnswerModel ans = this.answerRepository.getById(Long.parseLong("1"));
         question.addAnswer(ans);
-        this.questionRepository.save(this.questionMapper.questionDTOToQuestionModel(questionModelDTO));
+        this.questionRepository.save(question);
     }
 }

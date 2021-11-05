@@ -1,6 +1,6 @@
 package org.geografii.controller;
 
-import org.geografii.dto.AnswerModelDTO;
+import org.geografii.dto.QuestionModelDTO;
 import org.geografii.dto.QuestionModelDTO;
 import org.geografii.service.QuestionService;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +19,11 @@ public class QuestionController {
 
     public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
-        save();
     }
 
-    @PostMapping()
-    public ResponseEntity<Object> save(){
-        QuestionModelDTO ans= new QuestionModelDTO(null,"hgfds","hint",10, new HashSet<>());
-        this.questionService.saveQuestion(ans);
+    @PostMapping("/save")
+    public ResponseEntity<Object> save(@RequestBody QuestionModelDTO question){
+        this.questionService.saveQuestion(question);
         return ResponseEntity.ok().build();
     }
 }
