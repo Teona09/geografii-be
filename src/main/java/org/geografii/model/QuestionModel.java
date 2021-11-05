@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_model")
+@Table(name = "question_model")
 public class QuestionModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

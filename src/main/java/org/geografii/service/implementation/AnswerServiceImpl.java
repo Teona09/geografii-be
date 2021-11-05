@@ -21,4 +21,9 @@ public class AnswerServiceImpl implements AnswerService {
     public void saveAnswer(AnswerModelDTO answerModelDTO) {
         this.answerRepository.save(this.answerMapper.answerDTOToAnswerModel(answerModelDTO));
     }
+
+    @Override
+    public AnswerModelDTO getAnswerById(Long id) {
+        return this.answerMapper.answerModelToAnswerDTO(this.answerRepository.getById(id));
+    }
 }
