@@ -116,18 +116,18 @@ public class UserModelDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserModelDTO userModel = (UserModelDTO) o;
-        return Objects.equals(userId, userModel.userId) && Objects.equals(firstName, userModel.firstName) && Objects.equals(lastName, userModel.lastName) && Objects.equals(email, userModel.email) && Objects.equals(password, userModel.password) && Objects.equals(levelModels, userModel.levelModels) && Objects.equals(usablePoints, userModel.usablePoints);
+        UserModelDTO that = (UserModelDTO) o;
+        return Objects.equals(userId, that.userId) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(email, that.email) && Objects.equals(password, that.password) && Objects.equals(levelModels, that.levelModels) && Objects.equals(usablePoints, that.usablePoints) && Objects.equals(roleModel, that.roleModel);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, firstName, lastName, email, password, levelModels, usablePoints);
+        return Objects.hash(userId, firstName, lastName, email, password, levelModels, usablePoints, roleModel);
     }
 
     @Override
     public String toString() {
-        return "UserModel{" +
+        return "UserModelDTO{" +
                 "userId=" + userId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -135,6 +135,7 @@ public class UserModelDTO {
                 ", password='" + password + '\'' +
                 ", levelModels=" + levelModels +
                 ", usablePoints=" + usablePoints +
+                ", roleModel='" + roleModel + '\'' +
                 '}';
     }
 }

@@ -43,9 +43,7 @@ public class UserServiceImpl implements UserService {
         user.setRoleModels(new HashSet<>());
         user.addRole(role.get());
         user.setUsablePoints(0L);
-        System.out.println(user);
         UserModel addedUser = userRepository.save(user);
-        System.out.println(addedUser);
         return userMapper.userModelToUserDTO(addedUser);
     }
 
@@ -58,8 +56,10 @@ public class UserServiceImpl implements UserService {
     public UserModelDTO getById(Long id) {
         Optional<UserModel> user = userRepository.findById(id);
         if (user.isPresent()) {
-           // System.out.println(user);
-            return userMapper.userModelToUserDTO(user.get());
+            UserModel u= user.get();
+            UserModelDTO usr = userMapper.userModelToUserDTO(u);
+            usr.setRoleModel(u.getRoleModels().stream().findFirst().get().getName());
+            return usr;
         } else {
             throw new CustomException("no user found", HttpStatus.NOT_FOUND);
         }
