@@ -1,22 +1,35 @@
 package org.geografii.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
 public class UserModelDTO {
     private Long userId;
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String firstName;
+    @NotBlank
+    @Size(min = 3, max = 30)
     private String lastName;
+    @NotBlank
+    @Size(min = 3, max = 45)
+    @Email
     private String email;
+    @NotBlank
+    @Size(min = 8, max = 30)
     private String password;
     private Set<LevelModelDTO> levelModels = new HashSet<>();
-    private Long usablePoints;
+    private Long usablePoints = Long.parseLong("0");
+    private String roleModel;
 
     public UserModelDTO() {
     }
 
-    public UserModelDTO(Long userId, String firstName, String lastName, String email, String password, Set<LevelModelDTO> levelModels, Long usablePoints) {
+    public UserModelDTO(Long userId, @NotBlank @Size(min = 3, max = 30) String firstName, @NotBlank @Size(min = 3, max = 30) String lastName, @NotBlank @Size(min = 3, max = 45) @Email String email, @NotBlank @Size(min = 8, max = 30) String password, Set<LevelModelDTO> levelModels, Long usablePoints, String roleModel) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,6 +37,7 @@ public class UserModelDTO {
         this.password = password;
         this.levelModels = levelModels;
         this.usablePoints = usablePoints;
+        this.roleModel = roleModel;
     }
 
     public Long getUserId() {
@@ -80,6 +94,14 @@ public class UserModelDTO {
 
     public void setUsablePoints(Long usablePoints) {
         this.usablePoints = usablePoints;
+    }
+
+    public String getRoleModel() {
+        return roleModel;
+    }
+
+    public void setRoleModel(String roleModels) {
+        this.roleModel = roleModels;
     }
 
     public void addLevel(LevelModelDTO level) {

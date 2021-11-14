@@ -1,3 +1,4 @@
+USE geografii_db;
 CREATE TABLE IF NOT EXISTS level_information (
   level_id int NOT NULL,
   information_id int NOT NULL,
