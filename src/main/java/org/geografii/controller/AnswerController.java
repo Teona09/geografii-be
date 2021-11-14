@@ -1,9 +1,7 @@
 package org.geografii.controller;
 
 import org.geografii.dto.AnswerModelDTO;
-import org.geografii.model.AnswerModel;
 import org.geografii.service.AnswerService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

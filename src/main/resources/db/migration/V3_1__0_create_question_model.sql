@@ -1,3 +1,4 @@
+USE geografii_db;
 CREATE TABLE IF NOT EXISTS question_model (
   question_id int NOT NULL AUTO_INCREMENT,
   text varchar(250) NOT NULL,
