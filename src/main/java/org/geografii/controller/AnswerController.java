@@ -2,6 +2,7 @@ package org.geografii.controller;
 
 import org.geografii.dto.AnswerModelDTO;
 import org.geografii.service.AnswerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,8 +20,8 @@ public class AnswerController {
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Object> save(@RequestBody AnswerModelDTO ans){
-        this.answerService.saveAnswer(ans);
-        return ResponseEntity.ok().build();
+    public ResponseEntity save(@RequestBody AnswerModelDTO ans){
+        System.out.println(ans);
+        return new ResponseEntity(this.answerService.saveAnswer(ans), HttpStatus.CREATED);
     }
 }
