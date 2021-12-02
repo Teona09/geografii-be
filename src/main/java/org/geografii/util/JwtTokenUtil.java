@@ -66,7 +66,7 @@ public class JwtTokenUtil {
     public TokenDTO generateLoginToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
 
-        return new TokenDTO(buildTokenForLogin(claims, userDetails.getUsername(), userDetails), userDetails.getUsername(), userDetails, new Date());
+        return new TokenDTO(buildTokenForLogin(claims, userDetails.getUsername(), userDetails), userDetails.getUsername(), userDetails, System.currentTimeMillis());
     }
 
     private String buildTokenForLogin(Map<String, Object> claims, String subject, UserDetails userDetails) {
@@ -83,8 +83,8 @@ public class JwtTokenUtil {
         if (tokenValueWrapper == null) {
             return true;
         }
-        Date lastModified = ((TokenDTO) tokenValueWrapper.get()).getLastModified();
-        return new Date().getTime() - lastModified.getTime() > jwtLifetime;
+        Long lastModified = ((TokenDTO) tokenValueWrapper.get()).getLastModified();
+        return System.currentTimeMillis() - lastModified > jwtLifetime;
     }
 
     public UserDetails getLoggedInUserDetails(String email) {
