@@ -8,7 +8,7 @@ public class TokenDTO {
     private String token;
     private String email;
     private UserDetails userDetails;
-    private Date lastModified;
+    private Long lastModified;
 
     public TokenDTO() {
     }
@@ -37,15 +37,15 @@ public class TokenDTO {
         this.userDetails = userDetails;
     }
 
-    public Date getLastModified() {
+    public Long getLastModified() {
         return lastModified;
     }
 
-    public void setLastModified(Date lastModified) {
+    public void setLastModified(Long lastModified) {
         this.lastModified = lastModified;
     }
 
-    public TokenDTO(String token, String email, UserDetails userDetails, Date lastModified) {
+    public TokenDTO(String token, String email, UserDetails userDetails, Long lastModified) {
         this.token = token;
         this.email = email;
         this.userDetails = userDetails;

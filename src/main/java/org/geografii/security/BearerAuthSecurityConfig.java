@@ -29,7 +29,7 @@ public class BearerAuthSecurityConfig extends WebSecurityConfigurerAdapter {
     private String SECRET;
 
     @Value("${jwt.expiration_time}")
-    private String EXPIRATION_TIME;
+    private Long EXPIRATION_TIME;
 
     public BearerAuthSecurityConfig(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder, UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
         this.userDetailsService = userDetailsService;
@@ -50,7 +50,7 @@ public class BearerAuthSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**").permitAll()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManagerBean(), jwtTokenUtil))
+                .addFilter(new JWTAuthenticationFilter(authenticationManagerBean(), jwtTokenUtil, this.SECRET, this.EXPIRATION_TIME))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager(), userRepository, SECRET));
     }
 
