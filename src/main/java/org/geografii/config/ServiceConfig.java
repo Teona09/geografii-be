@@ -25,6 +25,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.geografii.service.LevelService;
 
 @Configuration
 public class ServiceConfig {
@@ -44,8 +45,14 @@ public class ServiceConfig {
     }
 
     @Bean
-    public QuestionService questionService(final QuestionRepository questionRepository, final QuestionMapper questionMapper, final AnswerRepository answerRepository) {
+    public QuestionService questionService(final QuestionRepository questionRepository, final QuestionMapper
+            questionMapper, final AnswerRepository answerRepository) {
         return new QuestionServiceImpl(questionRepository, questionMapper, answerRepository);
+    }
+
+    @Bean
+    public LevelService levelService(final LevelRepository levelRepository, final LevelMapper levelMapper) {
+        return new LevelServiceImpl(levelRepository, levelMapper);
     }
 
     @Bean
