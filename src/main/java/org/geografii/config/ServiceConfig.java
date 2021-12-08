@@ -1,20 +1,15 @@
 package org.geografii.config;
 
 import org.geografii.mapstruct.AnswerMapper;
+import org.geografii.mapstruct.LevelMapper;
 import org.geografii.mapstruct.QuestionMapper;
 import org.geografii.mapstruct.UserMapper;
-import org.geografii.repository.AnswerRepository;
-import org.geografii.repository.QuestionRepository;
-import org.geografii.repository.RoleRepository;
-import org.geografii.repository.UserRepository;
+import org.geografii.repository.*;
 import org.geografii.service.AnswerService;
 import org.geografii.service.CustomUserDetailsService;
 import org.geografii.service.QuestionService;
 import org.geografii.service.UserService;
-import org.geografii.service.implementation.AnswerServiceImpl;
-import org.geografii.service.implementation.CustomUserDetailsServiceImpl;
-import org.geografii.service.implementation.QuestionServiceImpl;
-import org.geografii.service.implementation.UserServiceImpl;
+import org.geografii.service.implementation.*;
 import org.geografii.service.security.AuthenticationService;
 import org.geografii.service.security.AuthenticationServiceImpl;
 import org.geografii.service.security.SecurityUserDetailsService;
