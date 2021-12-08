@@ -18,8 +18,8 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public void saveAnswer(AnswerModelDTO answerModelDTO) {
-        this.answerRepository.save(this.answerMapper.answerDTOToAnswerModel(answerModelDTO));
+    public AnswerModelDTO saveAnswer(AnswerModelDTO answerModelDTO) {
+        return answerMapper.answerModelToAnswerDTO(this.answerRepository.save(this.answerMapper.answerDTOToAnswerModel(answerModelDTO)));
     }
 
     @Override

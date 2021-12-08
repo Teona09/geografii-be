@@ -1,3 +1,4 @@
+USE geografii_db;
 CREATE TABLE IF NOT EXISTS question_answer (
   question_id int NOT NULL,
   answer_id int NOT NULL,
