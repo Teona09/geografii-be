@@ -17,16 +17,19 @@ public class LevelModel {
     @Column(name = "maximum_points", nullable = false)
     private Integer maximumPoints;
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "level_information", joinColumns = @JoinColumn(name = "level_id"), inverseJoinColumns = @JoinColumn(name = "information_id"))
+    @JoinTable(name = "level_information", joinColumns = @JoinColumn(name = "level_id"),
+            inverseJoinColumns = @JoinColumn(name = "information_id"))
     private Set<InformationModel> informationModels = new HashSet<>();
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-    @JoinTable(name = "level_question", joinColumns = @JoinColumn(name = "level_id"), inverseJoinColumns = @JoinColumn(name = "question_id"))
+    @JoinTable(name = "level_question", joinColumns = @JoinColumn(name = "level_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id"))
     private Set<QuestionModel> questionModels = new HashSet<>();
 
     public LevelModel() {
     }
 
-    public LevelModel(Long levelId, String region, Integer maximumPoints, Set<InformationModel> informationModels, Set<QuestionModel> questionModels) {
+    public LevelModel(Long levelId, String region, Integer maximumPoints, Set<InformationModel> informationModels,
+                      Set<QuestionModel> questionModels) {
         this.levelId = levelId;
         this.region = region;
         this.maximumPoints = maximumPoints;
@@ -95,7 +98,9 @@ public class LevelModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LevelModel that = (LevelModel) o;
-        return Objects.equals(levelId, that.levelId) && Objects.equals(region, that.region) && Objects.equals(maximumPoints, that.maximumPoints) && Objects.equals(informationModels, that.informationModels) && Objects.equals(questionModels, that.questionModels);
+        return Objects.equals(levelId, that.levelId) && Objects.equals(region, that.region) &&
+                Objects.equals(maximumPoints, that.maximumPoints) && Objects.equals(informationModels,
+                that.informationModels) && Objects.equals(questionModels, that.questionModels);
     }
 
     @Override

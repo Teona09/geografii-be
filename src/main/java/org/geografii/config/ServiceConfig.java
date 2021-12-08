@@ -4,9 +4,21 @@ import org.geografii.mapstruct.AnswerMapper;
 import org.geografii.mapstruct.LevelMapper;
 import org.geografii.mapstruct.QuestionMapper;
 import org.geografii.mapstruct.UserMapper;
-import org.geografii.repository.*;
-import org.geografii.service.*;
-import org.geografii.service.implementation.*;
+import org.geografii.repository.AnswerRepository;
+import org.geografii.repository.LevelRepository;
+import org.geografii.repository.QuestionRepository;
+import org.geografii.repository.RoleRepository;
+import org.geografii.repository.UserRepository;
+import org.geografii.service.AnswerService;
+import org.geografii.service.CustomUserDetailsService;
+import org.geografii.service.LevelService;
+import org.geografii.service.QuestionService;
+import org.geografii.service.UserService;
+import org.geografii.service.implementation.AnswerServiceImpl;
+import org.geografii.service.implementation.CustomUserDetailsServiceImpl;
+import org.geografii.service.implementation.LevelServiceImpl;
+import org.geografii.service.implementation.QuestionServiceImpl;
+import org.geografii.service.implementation.UserServiceImpl;
 import org.geografii.service.security.AuthenticationService;
 import org.geografii.service.security.AuthenticationServiceImpl;
 import org.geografii.service.security.SecurityUserDetailsService;
@@ -42,6 +54,11 @@ public class ServiceConfig {
     }
 
     @Bean
+    public LevelService levelService(final LevelRepository levelRepository, final LevelMapper levelMapper) {
+        return new LevelServiceImpl(levelRepository, levelMapper);
+    }
+
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(10);
     }
@@ -55,10 +72,5 @@ public class ServiceConfig {
     @Bean
     public UserService userService(final UserRepository userRepository, final RoleRepository roleRepository, final UserMapper userMapper, final PasswordEncoder passwordEncoder) {
         return new UserServiceImpl(userRepository, roleRepository, userMapper, passwordEncoder);
-    }
-
-    @Bean
-    public LevelService levelService(final LevelRepository levelRepository, final LevelMapper levelMapper) {
-        return new LevelServiceImpl(levelRepository, levelMapper);
     }
 }
