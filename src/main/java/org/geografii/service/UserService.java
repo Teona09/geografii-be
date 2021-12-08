@@ -9,4 +9,10 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     UserModelDTO getById(Long id) throws CustomException;
+
+    void resetPassword(Long id,String password) throws CustomException;
+
+    void deleteAccount(Long id) throws CustomException;
+
+    UserModelDTO updateUser(UserModelDTO user) throws CustomException;
 }

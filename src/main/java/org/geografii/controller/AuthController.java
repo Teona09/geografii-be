@@ -6,6 +6,7 @@ import org.geografii.dto.UserModelDTO;
 import org.geografii.exception.CustomException;
 import org.geografii.service.UserService;
 import org.geografii.service.security.AuthenticationService;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,4 +54,21 @@ public class AuthController {
         return ResponseEntity.ok(userService.getById(id));
     }
 
+    @PostMapping("/update")
+    public ResponseEntity updateUser(@Valid @RequestBody UserModelDTO userDTO) throws CustomException {
+        UserModelDTO user = userService.updateUser(userDTO);
+        return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/password/{id}")
+    public ResponseEntity resetPassword(@PathVariable("id") Long id,@RequestParam String password) throws CustomException {
+        userService.resetPassword(id,password);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long id) throws CustomException {
+        userService.deleteAccount(id);
+        return (ResponseEntity) ResponseEntity.noContent();
+    }
 }
