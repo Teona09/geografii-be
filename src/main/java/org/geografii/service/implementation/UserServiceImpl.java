@@ -56,10 +56,50 @@ public class UserServiceImpl implements UserService {
     public UserModelDTO getById(Long id) {
         Optional<UserModel> user = userRepository.findById(id);
         if (user.isPresent()) {
-            UserModel u= user.get();
+            UserModel u = user.get();
             UserModelDTO usr = userMapper.userModelToUserDTO(u);
             usr.setRoleModel(u.getRoleModels().stream().findFirst().get().getName());
             return usr;
+        } else {
+            throw new CustomException("no user found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void resetPassword(Long id, String password) {
+        Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            UserModel u = user.get();
+            u.setPassword(passwordEncoder.encode(password));
+            userRepository.save(u);
+        } else {
+            throw new CustomException("no user found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteAccount(Long id) throws CustomException {
+        Optional<UserModel> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            UserModel u = user.get();
+            userRepository.delete(u);
+        } else {
+            throw new CustomException("no user found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    @Transactional
+    public UserModelDTO updateUser(UserModelDTO userModelDTO) throws CustomException {
+        Optional<UserModel> user = userRepository.findById(userModelDTO.getUserId());
+        if (user.isPresent()) {
+            UserModel u = user.get();
+            u.setFirstName(userModelDTO.getFirstName());
+            u.setLastName(userModelDTO.getLastName());
+            u.setEmail(userModelDTO.getEmail());
+            return userMapper.userModelToUserDTO(userRepository.save(u));
         } else {
             throw new CustomException("no user found", HttpStatus.NOT_FOUND);
         }

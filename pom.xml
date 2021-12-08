@@ -16,7 +16,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <flyway-core.version>7.12.1</flyway-core.version>
+        <!--        <flyway-core.version>7.12.1</flyway-core.version>-->
         <java-jwt.version>3.10.3</java-jwt.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
@@ -24,6 +24,10 @@
         <springfox-swagger2.version>3.0.0</springfox-swagger2.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -70,11 +74,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfix-swagger-ui.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
-            <version>${flyway-core.version}</version>
-        </dependency>
+        <!--        <dependency>-->
+        <!--            <groupId>org.flywaydb</groupId>-->
+        <!--            <artifactId>flyway-core</artifactId>-->
+        <!--            <version>${flyway-core.version}</version>-->
+        <!--        </dependency>-->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
@@ -117,11 +121,11 @@
                     </compilerArgs>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-                <version>8.0.0</version>
-            </plugin>
+            <!--            <plugin>-->
+            <!--                <groupId>org.flywaydb</groupId>-->
+            <!--                <artifactId>flyway-maven-plugin</artifactId>-->
+            <!--                <version>8.0.0</version>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 
