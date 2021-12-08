@@ -63,12 +63,12 @@ public class AuthController {
     @PostMapping("/password/{id}")
     public ResponseEntity resetPassword(@PathVariable("id") Long id,@RequestParam String password) throws CustomException {
         userService.resetPassword(id,password);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(id,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity delete(@PathVariable("id") Long id) throws CustomException {
         userService.deleteAccount(id);
-        return (ResponseEntity) ResponseEntity.noContent();
+        return new ResponseEntity(id,HttpStatus.OK);
     }
 }
