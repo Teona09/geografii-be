@@ -49,8 +49,13 @@ public class AuthController {
         return ResponseEntity.ok(userService.existsByEmail(email));
     }
 
+    @GetMapping("/getByEmail")
+    public ResponseEntity getByEmail(@RequestParam("email") String email) {
+        return ResponseEntity.ok(userService.getByEmail(email));
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity checkEmail(@PathVariable("id") Long id) {
+    public ResponseEntity getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(userService.getById(id));
     }
 

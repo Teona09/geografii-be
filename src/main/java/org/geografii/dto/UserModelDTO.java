@@ -19,8 +19,6 @@ public class UserModelDTO {
     @Size(min = 3, max = 45)
     @Email
     private String email;
-    @NotBlank
-    @Size(min = 8, max = 30)
     private String password;
     private Set<LevelModelDTO> levelModels = new HashSet<>();
     private Long usablePoints = Long.parseLong("0");

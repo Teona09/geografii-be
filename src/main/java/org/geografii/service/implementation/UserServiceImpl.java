@@ -66,6 +66,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserModelDTO getByEmail(String email) {
+        Optional<UserModel> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            UserModel u = user.get();
+            UserModelDTO usr = userMapper.userModelToUserDTO(u);
+            usr.setRoleModel(u.getRoleModels().stream().findFirst().get().getName());
+            return usr;
+        } else {
+            throw new CustomException("no user found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
     @Transactional
     public void resetPassword(Long id, String password) {
         Optional<UserModel> user = userRepository.findById(id);
@@ -98,7 +111,11 @@ public class UserServiceImpl implements UserService {
             UserModel u = user.get();
             u.setFirstName(userModelDTO.getFirstName());
             u.setLastName(userModelDTO.getLastName());
+            if (userRepository.existsByEmailIgnoreCase(userModelDTO.getEmail()) && !u.getEmail().equals(userModelDTO.getEmail())) {
+                throw new CustomException("Email already exists!", HttpStatus.CONFLICT);
+            }
             u.setEmail(userModelDTO.getEmail());
+            u.setUsablePoints(userModelDTO.getUsablePoints());
             return userMapper.userModelToUserDTO(userRepository.save(u));
         } else {
             throw new CustomException("no user found", HttpStatus.NOT_FOUND);
