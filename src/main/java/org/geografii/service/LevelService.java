@@ -12,6 +12,8 @@ public interface LevelService {
 
     LevelModelDTO getLevelById(Long id);
 
+    LevelModelDTO getLevelByRegiune(String regiune);
+
     List<LevelModelDTO> getAllLevels();
 
     LevelModelDTO deleteLevel(Long levelId);

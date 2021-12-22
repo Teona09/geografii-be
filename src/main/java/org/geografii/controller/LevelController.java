@@ -20,4 +20,9 @@ public class LevelController {
         return new ResponseEntity(levelService.getLevelById(id), HttpStatus.OK);
     }
 
+    @GetMapping()
+    public ResponseEntity getByRegiune(@RequestParam("regiune") String regiune){
+        return new ResponseEntity(levelService.getLevelByRegiune(regiune), HttpStatus.OK);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class LevelServiceImpl implements LevelService {
@@ -28,6 +29,14 @@ public class LevelServiceImpl implements LevelService {
         Optional<LevelModel> levelModel = levelRepository.findById(id);
         if (levelModel.isEmpty())
             throw new CustomException("Level id does not exist!", HttpStatus.NOT_FOUND);
+        return levelMapper.ModelToDTO(levelModel.get());
+    }
+
+    @Override
+    public LevelModelDTO getLevelByRegiune(String regiune){
+        Optional<LevelModel> levelModel = levelRepository.findByRegion(regiune.toLowerCase(Locale.ROOT));
+        if (levelModel.isEmpty())
+            throw new CustomException("Level region does not exist!", HttpStatus.NOT_FOUND);
         return levelMapper.ModelToDTO(levelModel.get());
     }
 
