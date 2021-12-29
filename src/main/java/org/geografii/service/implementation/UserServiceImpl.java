@@ -31,20 +31,25 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserModelDTO registerUser(UserModelDTO userModelDTO) throws CustomException {
-        if (userRepository.existsByEmailIgnoreCase(userModelDTO.getEmail())) {
-            throw new CustomException("Email already exists!", HttpStatus.CONFLICT);
+        try {
+            if (userRepository.existsByEmailIgnoreCase(userModelDTO.getEmail())) {
+                throw new CustomException("Email already exists!", HttpStatus.CONFLICT);
+            }
+//            Optional<RoleModel> role = roleRepository.findByNameIgnoreCase(userModelDTO.getRoleModel());
+//            if (role.isEmpty()) {
+//                throw new CustomException("Role does not exist!", HttpStatus.NOT_FOUND);
+//            }
+            UserModel user = userMapper.userDTOToUserModel(userModelDTO);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setRoleModels(new HashSet<>());
+            //user.addRole(role.get());
+            user.setUsablePoints(0L);
+            UserModel addedUser = userRepository.save(user);
+            return userMapper.userModelToUserDTO(addedUser);
+        }catch(Exception ex) {
+            System.out.println(ex.getMessage());
+            throw ex;
         }
-        Optional<RoleModel> role = roleRepository.findByNameIgnoreCase(userModelDTO.getRoleModel());
-        if (role.isEmpty()) {
-            throw new CustomException("Role does not exist!", HttpStatus.NOT_FOUND);
-        }
-        UserModel user = userMapper.userDTOToUserModel(userModelDTO);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRoleModels(new HashSet<>());
-        user.addRole(role.get());
-        user.setUsablePoints(0L);
-        UserModel addedUser = userRepository.save(user);
-        return userMapper.userModelToUserDTO(addedUser);
     }
 
     @Override
