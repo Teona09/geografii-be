@@ -4,15 +4,14 @@ import org.geografii.dto.LevelModelDTO;
 import org.geografii.exception.CustomException;
 import org.geografii.mapstruct.LevelMapper;
 import org.geografii.model.LevelModel;
+import org.geografii.model.QuestionModel;
 import org.geografii.repository.LevelRepository;
 import org.geografii.service.LevelService;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LevelServiceImpl implements LevelService {
     private final LevelRepository levelRepository;
@@ -37,7 +36,22 @@ public class LevelServiceImpl implements LevelService {
         Optional<LevelModel> levelModel = levelRepository.findByRegion(regiune.toLowerCase(Locale.ROOT));
         if (levelModel.isEmpty())
             throw new CustomException("Level region does not exist!", HttpStatus.NOT_FOUND);
-        return levelMapper.ModelToDTO(levelModel.get());
+        LevelModel level = levelModel.get();
+        List<QuestionModel> allQuestions = new ArrayList<>(level.getQuestionModels());
+        List<QuestionModel> randomQuestions = new ArrayList<>();
+        int iteratii=0;
+        Random rand = new Random();
+        while(iteratii<5){
+            int rnd = rand.nextInt(allQuestions.size());
+            QuestionModel randomElement = allQuestions.get(rnd);
+            randomQuestions.add(randomElement);
+            allQuestions.remove(rnd);
+            iteratii++;
+        }
+        level.setQuestionModels(new HashSet<>(randomQuestions));
+        int totalPoints = randomQuestions.stream().mapToInt(QuestionModel::getPoints).sum();
+        level.setMaximumPoints(totalPoints);
+        return levelMapper.ModelToDTO(level);
     }
 
     @Override
